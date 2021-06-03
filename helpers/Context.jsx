@@ -19,16 +19,16 @@ export const AuthProvider = ({ children }) => {
                 api.defaults.headers.Authorization = `Bearer ${token}`
                 const { data } = await api.get('auth/get')
                     .then(res => {
-                        setLoading(false)
+                        // setLoading(false)
                         return res.data
                     })
                     .catch(err => {
-                        setLoading(false)
+                        // setLoading(false)
                         Cookies.remove('token')
                         return false
                     })
                 if (data) {
-                    console.log("auth is valid with", data.last_name)
+                    console.log("auth is valid with", data.first_name)
                     setUser(data);
                 }
                 

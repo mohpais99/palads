@@ -28,17 +28,17 @@ function signIn() {
             alert('tidak boleh kosong')
         } else {
             const user = await login(auth.username, auth.password)
-            setLoading(false)
             if (user) {
                 const role = Cookies.get('role')
                 if (role === 'member') {
                     router.push('/')
                 } else {
-                    router.push('/sign-up')
+                    router.push('/panel/dashboard')
                 }
             } else {
                 alert('gagal bos!')
             }
+            setLoading(false)
         }
     }
     return (
@@ -94,7 +94,15 @@ function signIn() {
                                         </span>
                                     </Card.Body>
                                     <div className="footer-auth text-center">
-                                        <button type="submit" className="btn btn-primary btn-link btn-wd btn-lg">Get Started</button>
+                                        {
+                                            !loading ?
+                                                <button type="submit" className="btn btn-primary btn-link btn-wd btn-lg">Get Started</button>
+                                            :
+                                                <button className="btn btn-primary btn-link btn-wd btn-lg" type="button" disabled>
+                                                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    {' '}Loading...
+                                                </button>
+                                        }
                                     </div>
                                 </Form>
                             </Card>

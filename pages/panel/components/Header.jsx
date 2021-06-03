@@ -7,7 +7,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { useRouter } from 'next/router';
-function Header() {
+
+function Header({user, logout}) {
     const router = useRouter()
     const [show, setShow] = React.useState(false)
     const brand = router.pathname.split("/")[2]
@@ -40,7 +41,7 @@ function Header() {
                                     </div>
                                     <div className="col my-auto pl-0"> 
                                         <span>
-                                            Moh Pais
+                                            {user.first_name}
                                         </span>
                                     </div>
                                 </div>
@@ -59,7 +60,7 @@ function Header() {
                                             Help
                                         </li>
                                         <li className='divider'></li>
-                                        <li className='option' onClick={() => router.push('/')}>
+                                        <li className='option' onClick={() => logout()}>
                                             <ExitToAppIcon className="mr-1"></ExitToAppIcon>
                                             Sign out
                                         </li>

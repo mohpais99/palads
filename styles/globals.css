@@ -377,9 +377,6 @@ button {
   color: #fff;
 }
 
-.card .card-header-info {
-  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, .2), 0 13px 24px -11px rgba(39, 133, 176, 0.6);
-}
 
 .card.bg-info,
 .card .card-header-info,

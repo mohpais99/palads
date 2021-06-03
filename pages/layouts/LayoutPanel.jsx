@@ -1,13 +1,16 @@
 import React from 'react';
 import Sidebar from '../panel/components/Sidebar'
 import Header from '../panel/components/Header';
-// import SearchIcon from '@material-ui/icons/Search';
+import withAuthAdmin from '/helpers/withAuthAdmin';
+import useAuth from '/helpers/Context';
+
 function LayoutPanel({children}) {
+    const {user, loading, logout} = useAuth()
     return (
         <div className="wrapper-admin">
             <Sidebar />
             <main>
-                <Header />
+                <Header user={user} logout={logout} />
                 {children}
                 <footer className="footer">
                     <div className="container-fluid">
@@ -23,4 +26,4 @@ function LayoutPanel({children}) {
     )
 }
 
-export default LayoutPanel;
+export default withAuthAdmin(LayoutPanel);
