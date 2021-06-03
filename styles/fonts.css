@@ -1,0 +1,93 @@
+/* ==================== Font Style ======================== */
+@font-face {
+    font-family: Poppins-Black;
+    src: url('/fonts/poppins/Poppins-Black.ttf');
+}
+
+@font-face {
+    font-family: Poppins-SemiBold;
+    src: url('/fonts/poppins/Poppins-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: Poppins-Bold;
+    src: url('/fonts/poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+    font-family: Poppins-Medium;
+    src: url('/fonts/poppins/Poppins-Medium.ttf');
+}
+
+@font-face {
+    font-family: Poppins-Light;
+    src: url('/fonts/poppins/Poppins-Light.ttf');
+}
+
+.poppins-bold {
+    font-family: Poppins-Bold;
+    font-weight: 700;
+}
+
+.poppins-semi-bold {
+    font-family: Poppins-SemiBold;
+    font-weight: 600;
+}
+
+.poppins-light {
+    font-family: Poppins-Light;
+    font-weight: 400;
+}
+
+.poppins-medium {
+    font-family: Poppins-Medium;
+    font-weight: 500;
+}
+
+.font-10 {
+    font-size: 10px;
+}
+
+.font-12 {
+    font-size: 12px;
+}
+
+.font-14 {
+    font-size: 14px;
+}
+
+.font-16 {
+    font-size: 16px;
+}
+
+.font-18 {
+    font-size: 18px;
+}
+
+.font-20 {
+    font-size: 20px;
+}
+
+.font-22 {
+    font-size: 22px;
+}
+
+.font-24 {
+    font-size: 24px;
+}
+
+.text-dark {
+    color: #333 !important;
+}
+
+.text-white {
+    color: aliceblue!important;
+}
+
+.text-purple {
+    color: #9c27b0 !important;
+}
+
+.text-right {
+    text-align: right;
+}

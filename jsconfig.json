@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "/libs": ["libs/*"],
+            "/services": ["services/*"],
+            "/helpers": ["helpers/*"],
+            "/pages": ["pages/*"],
+        }
+    }
+}
+
