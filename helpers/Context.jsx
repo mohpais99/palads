@@ -19,11 +19,9 @@ export const AuthProvider = ({ children }) => {
                 api.defaults.headers.Authorization = `Bearer ${token}`
                 const { data } = await api.get('auth/get')
                     .then(res => {
-                        // setLoading(false)
                         return res.data
                     })
                     .catch(err => {
-                        // setLoading(false)
                         Cookies.remove('token')
                         return false
                     })

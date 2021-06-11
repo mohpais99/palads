@@ -11,6 +11,8 @@ import CloudIcon from '@material-ui/icons/Cloud';
 import TabPaneBugs from './includes/TabPaneBugs';
 import TabPaneMessages from './includes/TabPaneMessages';
 import TabPaneCloud from './includes/TabPaneCloud';
+import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
 
 function Dashboard() {
     const [tab, setTab] = React.useState('bug_report')
@@ -140,43 +142,36 @@ function Dashboard() {
                         <div className="col-lg-6 col-md-12">
                             <div className="card">
                                 <div className="card-header card-header-warning">
-                                    <h4 className="card-title">Employees Stats</h4>
+                                    <h4 className="card-title">Booking List</h4>
                                     <p className="card-category">New employees on 15th September, 2016</p>
                                 </div>
                                 <div className="card-body table-responsive">
                                     <table className="table table-hover">
                                         <thead className="text-warning">
                                             <tr>
-                                                <th>ID</th>
+                                                <th>#</th>
                                                 <th>Name</th>
-                                                <th>Salary</th>
-                                                <th>Country</th>
+                                                <th>Date</th>
+                                                <th>Field</th>
+                                                <th>How Long</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>1</td>
                                                 <td>Dakota Rice</td>
-                                                <td>$36,738</td>
-                                                <td>Niger</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Minerva Hooper</td>
-                                                <td>$23,789</td>
-                                                <td>Curaçao</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Sage Rodriguez</td>
-                                                <td>$56,142</td>
-                                                <td>Netherlands</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Philip Chaney</td>
-                                                <td>$38,735</td>
-                                                <td>Korea, South</td>
+                                                <td>February 13th, 2021</td>
+                                                <td>Field 2</td>
+                                                <td>2 Hours</td>
+                                                <td>
+                                                    <button className="btn btn-sm btn-warning mr-1">
+                                                        <EditIcon></EditIcon>
+                                                    </button>
+                                                    <button className="btn btn-sm btn-success">
+                                                        <CloseIcon></CloseIcon>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

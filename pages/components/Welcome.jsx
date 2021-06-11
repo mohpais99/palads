@@ -7,6 +7,11 @@ import BookIcon from '@material-ui/icons/Book';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 
 function Welcome() {
+    const [check, setCheck] = React.useState()
+    const handleChange = e => {
+        setCheck({...check, [e.target.name]: e.target.value})
+    }
+    // console.log(check);
     return (
         <Container>
             <Row className="slider-text align-items-center justify-content-center">
@@ -37,7 +42,7 @@ function Welcome() {
                                                 <EventIcon></EventIcon>
                                             </span>
                                         </div>
-                                        <input type="date" className="form-control" placeholder="Check-In Date" />
+                                        <input type="date" name="booking_date" onChange={handleChange} className="form-control" placeholder="Check-In Date" />
                                     </div>
                                 </div>
                             </Col>
@@ -50,7 +55,7 @@ function Welcome() {
                                                 <QueryBuilderIcon></QueryBuilderIcon>
                                             </span>
                                         </div>
-                                        <select name="" id="" className="form-control">
+                                        <select name="booking_time" id="booking_time" onChange={handleChange}  className="form-control">
                                             <option value="09.00">09.00</option>
                                             <option value="10.00">10.00</option>
                                             <option value="11.00">11.00</option>
@@ -68,7 +73,7 @@ function Welcome() {
                                                 <BookIcon></BookIcon>
                                             </span>
                                         </div>
-                                        <select name="" id="" className="form-control">
+                                        <select name="booking_field" id="booking_field" className="form-control" onChange={handleChange} >
                                             <option value="Fields One">Fields One</option>
                                             <option value="Fields Two">Fields Two</option>
                                             <option value="Fields Three">Fields Three</option>
@@ -86,7 +91,7 @@ function Welcome() {
                                                 <HourglassEmptyIcon></HourglassEmptyIcon>
                                             </span>
                                         </div>
-                                        <select name="" id="" className="form-control">
+                                        <select name="booking_long" id="booking_long" className="form-control">
                                             <option value="" disabled>How long u will booking?</option>
                                             <option value="1">1 Hours</option>
                                             <option value="2">2 Hours</option>
@@ -99,8 +104,11 @@ function Welcome() {
                             <div className="col-md-12 col-lg d-flex">
                                 <div className="form-group d-flex border-0">
                                     <div className="form-field w-100 align-items-center d-flex">
-                                        <a href="#" type="submit" className="d-flex justify-content-center align-items-center align-self-stretch form-control btn btn-primary py-lg-4 py-xl-0">
+                                        {/* <a type="submit" className="d-flex justify-content-center align-items-center align-self-stretch form-control btn btn-primary py-lg-4 py-xl-0">
                                             <span>Check Availability</span>
+                                        </a> */}
+                                        <a type="submit" className="d-flex justify-content-center align-items-center align-self-stretch form-control btn btn-success py-lg-4 py-xl-0">
+                                            <span>Available</span>
                                         </a>
                                     </div>
                                 </div>

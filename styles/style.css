@@ -398,11 +398,13 @@
     border-radius: 3px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     opacity: 0;
+    visibility: hidden;
     transition: all ease-in-out .2s;
 }
 
 .profiledropdown.show {
     opacity: 1;
+    visibility: visible;
 }
 
 .profiledropdown ul {

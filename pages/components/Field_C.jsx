@@ -2,8 +2,27 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import HomeIcon from '@material-ui/icons/Home';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import api from 'services/restapi';
 
 function Field_C() {
+    const [loading, setLoading] = React.useState(true);
+    const [field, setField] = React.useState();
+    React.useEffect(() => {
+        async function loadField() {
+            const { data } = await api.get('field')
+                .then(res => {
+                    return res.data
+                })
+                .catch(err => {
+                    return false
+                })
+            if (data) {
+                setLoading(false)
+                setField(data);
+            }
+        }
+        loadField()
+    }, [])
     return (
         <Container className="pb-5">
             <Row className="slider-text align-items-center justify-content-center">
@@ -35,7 +54,55 @@ function Field_C() {
                             </Col>
                         </Row>
                         <Row className="justify-content-center">
-                            <div className="col-md-6 col-lg-4 d-flex align-items-stretch">
+                            {
+                                !loading && 
+                                    field ?
+                                        field.map((field, key) => 
+                                            field.id % 2 !== 0 ?
+                                                <div key={key} className="col-md-6 col-lg-4 d-flex align-items-stretch">
+                                                    <div className="room-wrap shadow d-md-flex flex-md-column-reverse w-100">
+                                                        <a href="" className="img img-room" style={{backgroundImage: `url(data:image/png;base64,${field.image})`}}></a>
+                                                        <div className="text p-5 text-center">
+                                                            <h3>
+                                                                <a href="">{field.name}</a>
+                                                            </h3>
+                                                            <p>{field.description}</p>
+                                                            <p className="mb-0 mt-2">
+                                                                <span className="me-3 price">
+                                                                    Rp {field.price}
+                                                                    <small>/ Hours</small>
+                                                                </span>
+                                                                <a href="#" className="btn-custom">Book Now</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            :
+                                                <div key={key} className="col-md-6 col-lg-4 d-flex align-items-stretch">
+                                                    <div className="room-wrap shadow w-100">
+                                                        <a href="" className="img img-room" style={{backgroundImage: `url(data:image/png;base64,${field.image})`}}></a>
+                                                        <div className="text p-5 text-center">
+                                                        <h3>
+                                                            <a href="#">{field.name}</a></h3>
+                                                            <p>{field.description}</p>
+                                                            <p className="mb-0 mt-2">
+                                                                <span className="me-3 price">
+                                                                    Rp {field.price}
+                                                                    <small>/ Hours</small>
+                                                                </span>
+                                                                <a href="#" className="btn-custom">Book Now</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        )
+                                    :
+                                        <div className="col-12 text-center">
+                                            <div className="h4">Tidak ada data!</div>
+                                        </div>
+
+                            }
+                            {/* <div className="col-md-6 col-lg-4 d-flex align-items-stretch">
                                 <div className="room-wrap shadow d-md-flex flex-md-column-reverse">
                                     <a href="" className="img img-room" style={{backgroundImage: 'url(/images/lapangan-1.jpeg)'}}></a>
                                     <div className="text p-5 text-center">
@@ -141,7 +208,7 @@ function Field_C() {
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </Row>
                         <Row>
                             <Col className="text-center" sm="12">

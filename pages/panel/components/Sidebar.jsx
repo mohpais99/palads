@@ -34,7 +34,7 @@ function Sidebar() {
                             <span className="MuiTouchRipple-root"></span>
                         </div>
                     </div>
-                    <div className="d-block position-relative poppins-semi-bold text-white cursor">
+                    <div onClick={() => router.push('/panel/fields')} className="d-block position-relative poppins-semi-bold text-white cursor">
                         <div className={`item-link ${router.pathname === '/panel/fields' ? 'active' : ''}`}>
                             <PageviewIcon className="float-left mr-1"></PageviewIcon>
                             <div style={{minWidth: "0"}}>
