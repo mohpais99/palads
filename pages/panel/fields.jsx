@@ -3,8 +3,10 @@ import LayoutPanel from '../layouts/LayoutPanel';
 import AddIcon from '@material-ui/icons/Add';
 import api from 'services/restapi';
 import ModalField from './includes/ModalField';
+import { useRouter } from 'next/router';
 
 function Fields() {
+    const router = useRouter()
     const [show, setShow] = React.useState(false);
     const [field, setField] = React.useState();
     
@@ -53,7 +55,7 @@ function Fields() {
                                                                 <div className="w-100">
                                                                     <div className="row">
                                                                         <div className="col">
-                                                                            <button className="btn btn-info w-100">Pratinjau</button>
+                                                                            <button onClick={() => router.push(`/panel/view/field/${field.slug}`)} className="btn btn-info w-100">Pratinjau</button>
                                                                         </div>
                                                                         <div className="col">
                                                                             <button className="btn btn-warning w-100">Edit</button>
@@ -73,7 +75,7 @@ function Fields() {
                                                     </div>
                                                 </div>
                                         :
-                                            <div className="col-12">
+                                            <div className="col-12 text-center">
                                                 <div className="spinner-border" role="status"></div>
                                                 <div className="spinner-border" role="status"></div>
                                                 <div className="spinner-border" role="status"></div>

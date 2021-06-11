@@ -1,6 +1,7 @@
 import { query } from 'libs/db';
 import authorization from 'helpers/Authorization';
 import Cors from 'cors';
+import * as g from 'libs/Global'
 
 export const config = {
     api: {
@@ -31,10 +32,11 @@ const handlerFieldInsert = async (req, res) => {
     try {
         const data = req.body
         await authorization(req, res);
+        const slug  = g.convertToSlug(data.name)
         const results = await query(`
-            INSERT INTO fields (name, image, description, price, status)
-            VALUES (?, ?, ?, ?, ?)
-        `, [data.name, data.image, data.description, data.price, true])
+            INSERT INTO fields (name, slug, image, description, price, status)
+            VALUES (?, ?, ?, ?, ?, ?)
+        `, [data.name, slug, data.image, data.description, data.price, true])
         if (results.affectedRows !== 1) res.status(500).json({data: 'Failed!'})
 
         return res.json({data: results})

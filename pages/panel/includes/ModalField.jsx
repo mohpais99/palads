@@ -3,7 +3,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import api from 'services/restapi';
 
 function ModalField({show, onShow}) {
-    const [imagePreview, setImagePreview] = React.useState("");
+    const [imagePreview, setImagePreview] = React.useState(null);
     const [name, setName] = React.useState();
     const [price, setPrice] = React.useState();
     const [desc, setDesc] = React.useState();
@@ -49,7 +49,7 @@ function ModalField({show, onShow}) {
                     <Form.Control as="textarea" placeholder="Description field ..." className="my-3" onChange={(e) => setDesc(e.target.value)} />
                     <Form.Group controlId="formFile" className="my-3">
                         {
-                            imagePreview !== "" &&
+                            imagePreview &&
                                 (
                                     <div className="w-100">
                                         <img src={imagePreview} id="photo-field" style={{width: "100%"}} alt="file" />
