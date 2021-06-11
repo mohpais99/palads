@@ -6,7 +6,7 @@ import { Form } from 'react-bootstrap';
 
 function FieldDetail() {
     const router = useRouter();
-    const [field, setField] = React.useState();
+    const [field, setField] = React.useState(null);
     const [loading, setLoading] = React.useState(true);
     const { slug } = router.query
     React.useEffect(() => {
@@ -18,14 +18,13 @@ function FieldDetail() {
                 .catch(err => {
                     return false
                 })
-            if (data) {
+            if (data) { 
                 setLoading(false)
                 setField(data);
             }
         }
         loadField()
     }, [])
-    console.log(field);
     return (
         <LayoutPanel>
             <div className="panel-content">
@@ -45,7 +44,19 @@ function FieldDetail() {
                                                 <div className="spinner-border" role="status"></div>
                                             </div>
                                         :
-                                            <p>{slug}</p>
+                                            field && 
+                                                <div className="col-12">
+                                                    <div className="row">
+                                                        <div className="col">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div className="row justify-content-center">
+                                                        <div className="col-md-6">
+                                                            <img className="img-fluid" src={`data:image/png;base64,${field.image}`} alt="Field" />
+                                                        </div>
+                                                    </div>
+                                                </div>
                                     }
                                 </div>
                             </div>

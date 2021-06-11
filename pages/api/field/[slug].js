@@ -2,7 +2,7 @@ import { query } from 'libs/db';
 import Cors from 'cors';
 
 const cors = Cors({
-    methods: ['GET', 'HEAD'],
+    methods: ['PUT', 'HEAD'],
 })
 
 function runMiddleware(req, res, fn) {
@@ -25,7 +25,7 @@ const handlerFieldSlug = async(req, res) => {
             WHERE slug = ?
         `, [slug])
         if (results.length === 0) return res.json({data: []})
-        res.status(200).json({ name: results[0] })
+        res.status(200).json({ data: results[0] })
     } catch (error) {
         res.status(500).json({ data: e.message })
     }
