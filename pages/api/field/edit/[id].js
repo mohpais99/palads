@@ -1,9 +1,10 @@
 import { query } from 'libs/db';
 import Cors from 'cors';
 import authorization from 'helpers/Authorization';
+import * as g from 'libs/Global'
 
 const cors = Cors({
-    methods: ['DELETE', 'HEAD'],
+    methods: ['PUT', 'HEAD'],
 })
 
 function runMiddleware(req, res, fn) {
@@ -21,15 +22,21 @@ const handlerFieldSlug = async(req, res) => {
     await runMiddleware(req, res, cors)
     await authorization(req, res);
     try {
-        const { slug } = req.query
+        const { id } = req.query
+        const {
+            name,
+            image,
+            description,
+            price,
+            status
+        } = req.body
+        const slug = g.convertToSlug(name)
         const results = await query(`
-            DELETE FROM fields
-            WHERE slug = ?
-        `, [slug])
-        if (results.length === 0) return res.json({data: []})
-        res.status(204).json({ data: results })
-    } catch (error) {
-        res.status(500).json({ data: e.message })
+            UPDATE fields SET name = ?, slug = ?, image = ?, description = ?, price = ?, status = ? WHERE id = ?
+        `, [name, slug, image, description, price, status, id])
+        return res.status(200).json({ success: results.affectedRows })
+    } catch (err) {
+        return res.status(500).json({ success: err.message })
     }
 }
 

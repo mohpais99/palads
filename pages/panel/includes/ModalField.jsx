@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import api from 'services/restapi';
 

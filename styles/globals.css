@@ -821,6 +821,10 @@ button {
   border-color: #dee2e6 #dee2e6 #fafafa;
 }
 
+.d-block {
+  display: block !important;
+}
+
 .ripple-container {
   position: absolute;
   top: 0;

@@ -2,6 +2,8 @@ import React from 'react';
 import LayoutPanel from '../../../layouts/LayoutPanel';
 import { useRouter } from 'next/router';
 import api from 'services/restapi';
+import Link from 'next/link';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 function FieldDetail() {
     const router = useRouter();
@@ -30,7 +32,12 @@ function FieldDetail() {
                 <div className="container-fluid">
                     <div className="container-fluid">
                         <div className="card card-plain">
-                            <div className="card-header card-header-info py-4">
+                            <div className="card-header card-header-info py-4 d-flex">
+                                <div className="btn btn-sm my-auto mr-2 text-white">
+                                    <Link href="/panel/fields">
+                                        <ArrowBackIcon></ArrowBackIcon>
+                                    </Link>
+                                </div>
                                 <h4 className="card-title">Review Field</h4>
                             </div>
                             <div className="card-body">

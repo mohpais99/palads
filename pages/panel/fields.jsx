@@ -43,7 +43,7 @@ function Fields() {
                 <div className="container-fluid">
                     <div className="container-fluid">
                         <div className="card card-plain">
-                            <div className="card-header card-header-info py-4">
+                            <div className="card-header card-header-info py-4 px-4">
                                 <h4 className="card-title float-left my-auto">List Field</h4>
                                 <span onClick={handleShow} className="float-right text-white my-auto cursor">
                                     <AddIcon></AddIcon>
