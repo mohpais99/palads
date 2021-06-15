@@ -13,7 +13,7 @@ import Cookies from 'js-cookie';
 
 function signIn() {
     const router = useRouter()
-    const {user, login} = useAuth()
+    const {login} = useAuth()
     const [loading, setLoading] = React.useState(false)
     const [auth, setAuth] = React.useState({username: '', password: ''})
 

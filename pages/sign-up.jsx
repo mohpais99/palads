@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import api from 'services/restapi';
@@ -8,9 +9,12 @@ import AddIcCallIcon from '@material-ui/icons/AddIcCall';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import FaceIcon from '@material-ui/icons/Face';
 import LockIcon from '@material-ui/icons/Lock';
+import useAuth from '/helpers/Context';
 
 function signUp() {
+    const router = useRouter()
     const [disable, setDisable] = React.useState(false)
+    const {notify} = useAuth()
     const [user, setUser] = React.useState({
         first_name: '',
         last_name: '',
@@ -22,8 +26,27 @@ function signUp() {
     })
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const { data: regist } = await api.post('auth/do-regist', user)
-        console.log(regist);
+        if (user.first_name === '' || user.last_name === '' || user.email === '' || user.username === '' || user.no_telp === '' || user.password === '') {
+            notify('Silahkan lengkapi data!', 'WARNING')
+        } else if(user.password !== user.repassword) {
+            notify('Password doesnt match!', 'WARNING')
+
+        } else {
+            await api.post('auth/do-regist', user)
+                .then(res => {
+                    var {data} = res.data
+                    if (data === 1) {
+                        notify("Register berhasil, silahkan verify email lalu login!")
+                        router.push('/sign-in')
+                    } else {
+                        notify("Something wrong! :(", "DANGER")
+                    }
+                })
+                .catch(err => {
+                    notify("Something wrong! :(", "DANGER")
+                    return false
+                })
+        }
     }
     return (
         <>

@@ -9,17 +9,16 @@ function Members() {
     const [loading, setLoading] = React.useState(true)
     React.useEffect(() => {
         async function loadAllUser() {
-            const { data } = await api.get('member')
+            await api.get('member')
                 .then(res => {
-                    return res.data
+                    var {data} = res.data
+                    setMember(data);
+                    return 
                 })
                 .catch(err => {
                     return false
                 })
-            if (data) {
-                setLoading(false)
-                setMember(data);
-            }
+            setLoading(false)
         }
         loadAllUser()
     }, [])

@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
 // import { useRouter } from 'next/router'
 import api from 'services/restapi';
-
+import { ToastContainer, toast } from 'react-toastify';    
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
@@ -36,6 +36,26 @@ export const AuthProvider = ({ children }) => {
         loadUserFromCookies()
     }, [])
 
+    const notify = (msg, status) => {
+        switch (status) {
+            case 'SUCCESS':
+                toast.success(msg, {autoClose: 2000 })
+                break;
+            case 'DANGER':
+                toast.error(msg, {autoClose: 2000 })
+                break;
+            case 'INFO':
+                toast.info(msg, {autoClose: 2000 })
+                break;
+            case 'WARNING':
+                toast.warning(msg, {autoClose: 2000 })
+                break;
+            default:
+                toast.success(msg, {autoClose: 2000 })
+                break;
+        }
+    }
+
     const login = async (username, password) => {
         var result = await api.post('auth/do-login', { username, password })
             .then(res => {
@@ -63,6 +83,7 @@ export const AuthProvider = ({ children }) => {
                     return res.data
                 })
             setUser(data)
+            notify('Welcome, ' + data.first_name)
         }
         return result
     }
@@ -71,12 +92,14 @@ export const AuthProvider = ({ children }) => {
         setUser(null)
         setToken(null)
         setLoading(false)
+        notify('Good bye! :)')
         delete api.defaults.headers.Authorization
     }
 
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout, tokenify }}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout, tokenify, notify }}>
+            <ToastContainer />
             {children}
         </AuthContext.Provider>
     )

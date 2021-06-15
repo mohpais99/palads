@@ -18,7 +18,7 @@ const handlerAuthRegist = async (req, res) => {
             VALUES (?, ?, ?, ?, ?, ?)
         `, [results.insertId, 'member', data.email, data.username, password, 0]) 
         if (i_auth.affectedRows !== 1) res.status(500).json({data: 'Failed!'})
-        return res.json({data: results})
+        return res.json({data: results.affectedRows})
     } catch (e) {
         console.log(e);
         res.status(500).end()

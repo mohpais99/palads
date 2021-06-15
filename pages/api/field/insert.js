@@ -39,7 +39,7 @@ const handlerFieldInsert = async (req, res) => {
         `, [data.name, slug, data.image, data.description, data.price, true])
         if (results.affectedRows !== 1) res.status(500).json({data: 'Failed!'})
 
-        return res.json({data: results})
+        return res.json({data: results.affectedRows})
     } catch (e) {
         res.status(500).json({ data: e.message })
     }

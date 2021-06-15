@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Form, Modal } from 'react-bootstrap';
 import api from 'services/restapi';
 
-function ModalField({show, onShow}) {
+function ModalField({show, notify, loadField, onShow}) {
     const [imagePreview, setImagePreview] = React.useState(null);
     const [name, setName] = React.useState();
     const [price, setPrice] = React.useState();
@@ -11,6 +11,7 @@ function ModalField({show, onShow}) {
     const handleImage = e => {
         let file = e.target.files[0];
         if (file) {
+            setImagePreview(URL.createObjectURL(file))
             const reader = new FileReader();
             reader.onload = _handleReaderLoaded
             reader.readAsBinaryString(file)
@@ -20,7 +21,6 @@ function ModalField({show, onShow}) {
     const _handleReaderLoaded = (readerEvt) => {
         let binaryString = readerEvt.target.result;
         setBase64(btoa(binaryString))
-        setImagePreview("data:image/png;base64," + base64)
     }
 
     const handleSave = async (e) => {
@@ -33,8 +33,14 @@ function ModalField({show, onShow}) {
         }
         await api.post('field/insert', payload)
             .then(res => {
+                var {data} = res.data
+                if (data === 1) {
+                    notify('Berhasil menambahkan data lapangan!')
+                    loadField()
+                } else {
+                    notify('Something wrong!', 'DANGER')
+                }
                 onShow(!show)
-                alert('success')
             })
     };
     return (

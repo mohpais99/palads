@@ -4,8 +4,10 @@ import AddIcon from '@material-ui/icons/Add';
 import api from 'services/restapi';
 import ModalField from './includes/ModalField';
 import { useRouter } from 'next/router';
+import useAuth from '/helpers/Context';
 
 function Fields() {
+    const { notify } = useAuth()
     const router = useRouter()
     const [show, setShow] = React.useState(false);
     const [field, setField] = React.useState();
@@ -13,22 +15,28 @@ function Fields() {
     const [loading, setLoading] = React.useState(true);
     const handleShow = () => setShow(!show);
     React.useEffect(() => {
-        async function loadField() {
-            const { data } = await api.get('field')
-                .then(res => {
-                    return res.data
-                })
-                .catch(err => {
-                    return false
-                })
-            if (data) {
-                setLoading(false)
-                setField(data);
-            }
-        }
-        loadField()
+        return loadField()
     }, [])
 
+    async function loadField() {
+        await api.get('field')
+            .then(res => {
+                var {data} = res.data
+                setField(data)
+            })
+            .catch(err => {
+                return false
+            })
+        setLoading(false)
+    }
+
+    const handleDelete = async (slug) => {
+        await api.delete(`field/delete/${slug}`)
+            .then(res => {
+                notify('Delete field is success!')
+                loadField()
+            })
+    }
     return (
         <LayoutPanel>
             <div className="panel-content">
@@ -45,7 +53,7 @@ function Fields() {
                                 <div className="row">
                                     {
                                         !loading ?
-                                            field ? 
+                                            field.length > 0 ? 
                                                 field.map((field, key) => 
                                                     <div key={key} className="col-md-4">
                                                         <div className="card" style={{borderRadius: "10px"}}>
@@ -58,7 +66,10 @@ function Fields() {
                                                                             <button onClick={() => router.push(`/panel/view/field/${field.slug}`)} className="btn btn-info w-100">Pratinjau</button>
                                                                         </div>
                                                                         <div className="col">
-                                                                            <button className="btn btn-warning w-100">Edit</button>
+                                                                            <button onClick={() => router.push(`/panel/update/field/${field.slug}`)} className="btn btn-warning w-100">Edit</button>
+                                                                        </div>
+                                                                        <div className="col">
+                                                                            <button onClick={() => handleDelete(field.slug)} className="btn btn-danger w-100">Hapus</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -67,12 +78,8 @@ function Fields() {
                                                     </div>
                                                 )
                                             :
-                                                <div className="col-12">
-                                                    <div className="card">
-                                                        <div className="card-body text-center">
-                                                            <div className="h4">Tidak ada data</div>
-                                                        </div>
-                                                    </div>
+                                                <div className="col-12 text-center">
+                                                    <div className="h4">Tidak ada data</div>
                                                 </div>
                                         :
                                             <div className="col-12 text-center">
@@ -88,7 +95,7 @@ function Fields() {
                     </div>
                 </div>
             </div>
-            <ModalField show={show} onShow={handleShow} />
+            <ModalField show={show} notify={notify} loadField={loadField} onShow={handleShow} />
         </LayoutPanel>
     )
 }
