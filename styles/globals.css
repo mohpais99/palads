@@ -825,6 +825,10 @@ button {
   display: block !important;
 }
 
+.text-success-custom {
+  color: #00f986 !important;
+}
+
 .ripple-container {
   position: absolute;
   top: 0;

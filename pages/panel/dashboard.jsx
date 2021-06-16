@@ -13,9 +13,25 @@ import TabPaneMessages from './includes/TabPaneMessages';
 import TabPaneCloud from './includes/TabPaneCloud';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
+import * as g from 'libs/Global';
+import api from 'services/restapi';
 
 function Dashboard() {
     const [tab, setTab] = React.useState('bug_report')
+    const [payment, setPayment] = React.useState()
+    React.useEffect(() => {
+        loadPayment()
+    }, [])
+
+    async function loadPayment() {
+        await api.get('payment/current')
+            .then(res => {
+                var {data} = res.data
+                setPayment(data)
+            })
+    }
+
+    console.log(payment);
     return (
         <LayoutPanel>
             <div className="panel-content">
@@ -101,7 +117,7 @@ function Dashboard() {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-lg-6 col-md-12">
+                        <div className="col-lg-5 col-md-12">
                             <div className="card">
                                 <div className="card-header card-header-tabs card-header-primary">
                                     <div className="nav-tabs-navigation">
@@ -139,40 +155,48 @@ function Dashboard() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-6 col-md-12">
+                        <div className="col-lg-7 col-md-12">
                             <div className="card">
                                 <div className="card-header card-header-warning">
-                                    <h4 className="card-title">Booking List</h4>
-                                    <p className="card-category">New employees on 15th September, 2016</p>
+                                    <h4 className="card-title">Payment List</h4>
+                                    <p className="card-category">New payment on {g.currentDate()}</p>
                                 </div>
                                 <div className="card-body table-responsive">
                                     <table className="table table-hover">
                                         <thead className="text-warning">
                                             <tr>
                                                 <th>#</th>
-                                                <th>Name</th>
-                                                <th>Date</th>
-                                                <th>Field</th>
-                                                <th>How Long</th>
+                                                <th>No VA</th>
+                                                <th>Amount</th>
+                                                <th>Expired</th>
+                                                <th>Status</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Dakota Rice</td>
-                                                <td>February 13th, 2021</td>
-                                                <td>Field 2</td>
-                                                <td>2 Hours</td>
-                                                <td>
-                                                    <button className="btn btn-sm btn-warning mr-1">
-                                                        <EditIcon></EditIcon>
-                                                    </button>
-                                                    <button className="btn btn-sm btn-success">
-                                                        <CloseIcon></CloseIcon>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            {
+                                                payment && payment.map((pay, key) => 
+                                                    <tr key={key}>
+                                                        <td>{key+1}</td>
+                                                        <td>{pay.va}</td>
+                                                        <td>{g.formatRibuan(pay.total)}</td>
+                                                        <td>{pay.expired}</td>
+                                                        <td>
+                                                            <span className="p-2 bg-info font-10">
+                                                                Belum Bayar
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <button className="btn btn-sm btn-warning mr-1">
+                                                                <EditIcon></EditIcon>
+                                                            </button>
+                                                            <button className="btn btn-sm btn-success">
+                                                                <CloseIcon></CloseIcon>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
