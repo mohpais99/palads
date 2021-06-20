@@ -4,6 +4,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
 import PageviewIcon from '@material-ui/icons/Pageview';
 import ListAltIcon from '@material-ui/icons/ListAlt';
+import PaymentIcon from '@material-ui/icons/Payment';
 
 function Sidebar() {
     const router = useRouter()
@@ -43,11 +44,20 @@ function Sidebar() {
                             <span className="MuiTouchRipple-root"></span>
                         </div>
                     </div>
-                    <div className="d-block position-relative poppins-semi-bold text-white cursor">
+                    <div onClick={() => router.push('/panel/booking')} className="d-block position-relative poppins-semi-bold text-white cursor">
                         <div className={`item-link ${router.pathname === '/panel/booking' ? 'active' : ''}`}>
                             <ListAltIcon className="float-left mr-1"></ListAltIcon>
                             <div style={{minWidth: "0"}}>
-                                Booking List
+                                Booking
+                            </div>
+                            <span className="MuiTouchRipple-root"></span>
+                        </div>
+                    </div>
+                    <div className="d-block position-relative poppins-semi-bold text-white cursor">
+                        <div className={`item-link ${router.pathname === '/panel/payment' ? 'active' : ''}`}>
+                            <PaymentIcon className="float-left mr-1"></PaymentIcon>
+                            <div style={{minWidth: "0"}}>
+                                Payment
                             </div>
                             <span className="MuiTouchRipple-root"></span>
                         </div>

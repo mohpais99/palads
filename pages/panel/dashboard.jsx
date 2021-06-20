@@ -31,7 +31,6 @@ function Dashboard() {
             })
     }
 
-    console.log(payment);
     return (
         <LayoutPanel>
             <div className="panel-content">
